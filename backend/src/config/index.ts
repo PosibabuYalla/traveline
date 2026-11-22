@@ -1,11 +1,19 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+const WEAK = ['fallback-secret', 'fallback-refresh-secret', 'secret', 'changeme', ''];
+const jwtSecret = process.env.JWT_SECRET || '';
+const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET || '';
+if (WEAK.includes(jwtSecret) || WEAK.includes(jwtRefreshSecret)) {
+  console.error('FATAL: JWT_SECRET and JWT_REFRESH_SECRET must be set to strong values in .env');
+  process.exit(1);
+}
+
 export const config = {
   port: parseInt(process.env.PORT || '3001'),
   nodeEnv: process.env.NODE_ENV || 'development',
-  jwtSecret: process.env.JWT_SECRET || 'fallback-secret',
-  jwtRefreshSecret: process.env.JWT_REFRESH_SECRET || 'fallback-refresh-secret',
+  jwtSecret,
+  jwtRefreshSecret,
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '15m',
   jwtRefreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173',

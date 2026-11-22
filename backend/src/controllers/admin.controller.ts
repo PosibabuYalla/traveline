@@ -134,7 +134,8 @@ export class AdminController {
   seedAdmin = async (req: Request, res: Response): Promise<void> => {
     try {
       const { email, password, secret } = req.body;
-      if (secret !== 'TRAVELLINE_ADMIN_SETUP') {
+      const adminSecret = process.env.ADMIN_SETUP_SECRET;
+      if (!adminSecret || secret !== adminSecret) {
         res.status(403).json({ success: false, error: 'Invalid setup secret' }); return;
       }
       const existing = await prisma.user.findUnique({ where: { email } });
