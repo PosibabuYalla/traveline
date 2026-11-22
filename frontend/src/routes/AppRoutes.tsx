@@ -14,6 +14,8 @@ import { SettingsPage } from '../pages/SettingsPage';
 import { AdminLoginPage } from '../pages/admin/AdminLoginPage';
 import { AdminDriversPage } from '../pages/admin/AdminDriversPage';
 import { AdminDriverDetailPage } from '../pages/admin/AdminDriverDetailPage';
+import { AdminLayout } from '../layouts/AdminLayout';
+import { NotFoundPage } from '../pages/NotFoundPage';
 
 const TripHistoryPage = () => <div className="glass-card p-8 text-center text-slate-500">Trip History — Coming Soon</div>;
 const EarningsPage = () => <div className="glass-card p-8 text-center text-slate-500">Earnings — Coming Soon</div>;
@@ -40,11 +42,13 @@ export const AppRoutes = () => (
     </Route>
     {/* Admin */}
     <Route path="/admin/login" element={<AdminLoginPage />} />
-    <Route path="/admin/drivers" element={<AdminDriversPage />} />
-    <Route path="/admin/drivers/:id" element={<AdminDriverDetailPage />} />
+    <Route element={<AdminLayout />}>
+      <Route path="/admin/drivers" element={<AdminDriversPage />} />
+      <Route path="/admin/drivers/:id" element={<AdminDriverDetailPage />} />
+    </Route>
     <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
 
     <Route path="/" element={<Navigate to="/login" replace />} />
-    <Route path="*" element={<Navigate to="/login" replace />} />
+    <Route path="*" element={<NotFoundPage />} />
   </Routes>
 );
