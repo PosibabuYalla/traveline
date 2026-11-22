@@ -83,7 +83,7 @@ cp .env.example .env
 Edit `backend/.env` and fill in every value:
 
 ```env
-DATABASE_URL="postgresql://postgres:yourpassword@localhost:5432/travelline_db"
+DATABASE_URL="postgresql://<user>:<password>@localhost:5432/travelline_db"
 
 JWT_SECRET="a-long-random-string-at-least-32-chars"
 JWT_REFRESH_SECRET="another-long-random-string-different-from-above"
@@ -148,7 +148,7 @@ This is a one-time step. The `/api/admin/seed` endpoint creates an admin user us
 ```bash
 curl -X POST http://localhost:3001/api/admin/seed \
   -H "Content-Type: application/json" \
-  -d '{"email":"admin@travelline.com","password":"StrongPassword123!","secret":"your-ADMIN_SETUP_SECRET-value"}'
+  -d '{"email":"admin@travelline.com","password":"<your-password>","secret":"<your-ADMIN_SETUP_SECRET>"}'
 ```
 
 After this, log in at **http://localhost:5173/admin/login** with those credentials.
